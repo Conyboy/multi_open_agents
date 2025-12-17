@@ -3,9 +3,9 @@
 # Includes all mods needed: messaging, forum, wiki, project, and agentworld
 
 network:
-  name: "DefaultNetwork"
+  name: "Multi-Agent-TS-network"
   mode: "centralized"
-  node_id: "default-network-1"
+  node_id: "Multi-Agent-TS-network"
 
   # Transport configuration
   transports:

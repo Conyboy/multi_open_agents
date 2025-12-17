@@ -13,7 +13,7 @@ conda activate openagents
 openagents init ./network
 
 # Start network in background
-openagents network start ./my_ml_network > ./logs/network.log  &
+openagents network start ./network > ./logs/network.log  &
 sleep 5
 
 # Start agents (in background)
