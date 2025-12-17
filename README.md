@@ -44,6 +44,12 @@
 └── launch_network.sh          # 网络启动脚本
 ```
 
+## 演示视频
+
+https://user-images.githubusercontent.com/xxx/模型自动优化训练多智能体录屏.mp4
+
+*模型自动优化训练多智能体录屏((模型训练完成在2分0秒).mp4*
+
 ## 工作原理
 
 ### 五个核心智能体
@@ -84,6 +90,8 @@
 ### 环境配置
 
 ```bash
+conda create -n openagents python=3.12 -y
+conda activate openagents
 pip install -r requirements.txt
 ```
 
@@ -91,20 +99,21 @@ pip install -r requirements.txt
 
 1. 启动网络服务：
 ```bash
-./launch_network.sh
+openagents init ./network
+openagents network start ./my_ml_network > ./logs/network.log  &
 ```
 
 2. 依次启动各智能体：
 ```bash
-python agents/agent_a_load_analyze.py
-python agents/agent_b_feature_select.py
-python agents/agent_c_model_tune.py
-python agents/agent_d_train_eval.py
-python agents/agent_e_analyze_result.py
+python agents/agent_a_load_analyze.py > ./logs/agent_a.log &
+python agents/agent_b_feature_select.py > ./logs/agent_a.log  &
+python agents/agent_c_model_tune.py > ./logs/agent_a.log  &
+python agents/agent_d_train_eval.py > ./logs/agent_a.log  &
+python agents/agent_e_analyze_result.py > ./logs/agent_a.log  &
 ```
 
 3. 触发数据处理流程：
-通过向Agent A发送包含"upload"关键字的消息启动整个流程。
+通过向频道里面发送包含"数据加载"关键字的消息启动整个流程。
 
 ## 使用场景
 
