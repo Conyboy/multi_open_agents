@@ -46,7 +46,10 @@
 
 ## 演示视频
 
-[演示视频](https://github.com/Conyboy/multi_open_agents/blob/master/模型自动优化训练多智能体录屏(模型训练完成在2分0秒).mp4)
+<video width="600" controls>
+  <source src="模型自动优化训练多智能体录屏(模型训练完成在2分0秒).mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 *模型自动优化训练多智能体录屏((模型训练完成在2分0秒).mp4*
 
