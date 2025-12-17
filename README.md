@@ -44,12 +44,10 @@
 
 ## 演示视频
 
-<video width="600" controls>
-  <source src="模型自动优化训练多智能体录屏(模型训练完成在2分0秒).mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 *模型自动优化训练多智能体录屏((模型训练完成在2分0秒).mp4*
+
+<iframe width="600" height="400" src="https://www.bilibili.com/video/BV1ENqgBnEAj/?share_source=copy_web&vd_source=b25bcd86e5176cbdebc240259a9aeba0" frameborder="0" allowfullscreen></iframe>
+
 
 ## 工作原理
 
