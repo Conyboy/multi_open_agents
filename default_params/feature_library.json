@@ -1,0 +1,117 @@
+{
+  "station_code_feature": {
+    "name": "station_code_feature",
+    "input_cols": [
+      "站点编号"
+    ],
+    "description": "对站点编号进行标签编码，提取编号中的数字部分，创建站点编号的独热编码特征",
+    "output_col": [
+      "站点编号_le",
+      "站点编号_f1",
+      "站点编号_f2",
+      "站点编号_f3",
+      "站点编号_f4",
+      "站点编号_f5"
+    ]
+  },
+  "time_feature": {
+    "input_cols": [
+      "时间"
+    ],
+    "description": "提取时间的各个组成部分作为特征、创建小时段的独热编码（每4小时一个段）、将时间特征周期化处理",
+    "output_col": [
+      "year",
+      "day",
+      "hour",
+      "hour_split",
+      "month",
+      "hour_0",
+      "hour_1",
+      "hour_2",
+      "hour_3",
+      "hour_4",
+      "hour_5",
+      "month_0",
+      "month_1",
+      "month_2",
+      "month_3",
+      "hour_sin",
+      "day_sin"
+    ]
+  },
+  "cross_feature": {
+    "input_cols": ["云量", "相对湿度（%）", "100m风速（100m/s）", "10米风速（10m/s）", "100m风向（°)", "10米风向（°)"],
+    "description": "云量与相对湿度的交互特征、不同高度风速的差异和关系特征、基于现有数据推算更高高度的风速",
+    "output_col": [
+    "cross",
+    "100_minus_10_wind_speed", "100_multi_10_wind_speed", "100_plus_10_wind_speed", "100_divide_10_wind_speed", "10_divide_100_wind_speed",
+    "100_minus_10_wind_dir", "10_minus_100_wind_dir", "100_plus_10_wind_dir",
+    "200m风速（200m/s）", "215m风速（215m/s）", "200m风速（200m/s）_new", "215m风速（215m/s）_new"
+    ]
+  },
+  "wind_cycle_feature": {
+    "input_cols": ["100m风向（°)", "10米风向（°)"],
+    "description": "风力周期化",
+    "output_col": ["100m风向（°)_sin", "10米风向（°)_sin"]
+  },
+  "norm_feature": {
+    "input_cols": ["温度（K）", "气压(Pa）", "辐照强度（J/m2）", "降水（m）", "云量", "相对湿度（%）"],
+    "description": "特征归一化",
+    "output_col": [
+    "温度（K）_norm", "气压(Pa）_minmax_norm", "辐照强度（J/m2）_minmax_norm",
+    "降水（m）_norm", "降水（m）_minmax_norm", "云量_norm", "相对湿度（%）_norm"
+    ]
+  },
+  "hour_feature": {
+    "input_cols": [
+    "气压(Pa）", "相对湿度（%）", "云量", "10米风速（10m/s）", "10米风向（°)", "温度（K）",
+    "辐照强度（J/m2）", "降水（m）", "100m风速（100m/s）", "100m风向（°)"
+    ],
+    "description": "小时分组统计特征,计算每个站点每小时的统计特征",
+    "output_col": [
+    "气压(Pa）_gby_station_hour_mean", "气压(Pa）_gby_station_hour_std", "气压(Pa）_gby_station_hour_skew",
+    "相对湿度（%）_gby_station_hour_mean", "相对湿度（%）_gby_station_hour_std", "相对湿度（%）_gby_station_hour_skew",
+    "云量_gby_station_hour_mean", "云量_gby_station_hour_std", "云量_gby_station_hour_skew",
+    "10米风速（10m/s）_gby_station_hour_mean", "10米风速（10m/s）_gby_station_hour_std", "10米风速（10m/s）_gby_station_hour_skew",
+    "10米风向（°)_gby_station_hour_mean", "10米风向（°)_gby_station_hour_std", "10米风向（°)_gby_station_hour_skew",
+    "温度（K）_gby_station_hour_mean", "温度（K）_gby_station_hour_std", "温度（K）_gby_station_hour_skew",
+    "辐照强度（J/m2）_gby_station_hour_mean", "辐照强度（J/m2）_gby_station_hour_std", "辐照强度（J/m2）_gby_station_hour_skew",
+    "降水（m）_gby_station_hour_mean", "降水（m）_gby_station_hour_std", "降水（m）_gby_station_hour_skew",
+    "100m风速（100m/s）_gby_station_hour_mean", "100m风速（100m/s）_gby_station_hour_std", "100m风速（100m/s）_gby_station_hour_skew",
+    "100m风向（°)_gby_station_hour_mean", "100m风向（°)_gby_station_hour_std", "100m风向（°)_gby_station_hour_skew"
+    ]
+  },
+  "gap_feature": {
+    "name": "gap_feature",
+    "input_cols": [
+    "气压(Pa）", "相对湿度（%）", "云量", "10米风速（10m/s）", "10米风向（°)", "温度（K）",
+    "辐照强度（J/m2）", "降水（m）", "100m风速（100m/s）", "100m风向（°)"
+    ],
+    "description": "创建时间序列的滞后特征和差分特征，对每个站点的气象特征进行时间平移，并计算与当前值的差异",
+    "output_col": [
+    "气压(Pa）_shift-96", "气压(Pa）_gap-96", "相对湿度（%）_shift-96", "相对湿度（%）_gap-96", "云量_shift-96", "云量_gap-96", "10米风速（10m/s）_shift-96", "10米风速（10m/s）_gap-96", "10米风向（°)_shift-96", "10米风向（°)_gap-96", "温度（K）_shift-96", "温度（K）_gap-96", "辐照强度（J/m2）_shift-96", "辐照强度（J/m2）_gap-96", "降水（m）_shift-96", "降水（m）_gap-96", "100m风速（100m/s）_shift-96", "100m风速（100m/s）_gap-96", "100m风向（°)_shift-96", "100m风向（°)_gap-96",
+    "气压(Pa）_shift-48", "气压(Pa）_gap-48", "相对湿度（%）_shift-48", "相对湿度（%）_gap-48", "云量_shift-48", "云量_gap-48", "10米风速（10m/s）_shift-48", "10米风速（10m/s）_gap-48", "10米风向（°)_shift-48", "10米风向（°)_gap-48", "温度（K）_shift-48", "温度（K）_gap-48", "辐照强度（J/m2）_shift-48", "辐照强度（J/m2）_gap-48", "降水（m）_shift-48", "降水（m）_gap-48", "100m风速（100m/s）_shift-48", "100m风速（100m/s）_gap-48", "100m风向（°)_shift-48", "100m风向（°)_gap-48",
+    "气压(Pa）_shift-24", "气压(Pa）_gap-24", "相对湿度（%）_shift-24", "相对湿度（%）_gap-24", "云量_shift-24", "云量_gap-24", "10米风速（10m/s）_shift-24", "10米风速（10m/s）_gap-24", "10米风向（°)_shift-24", "10米风向（°)_gap-24", "温度（K）_shift-24", "温度（K）_gap-24", "辐照强度（J/m2）_shift-24", "辐照强度（J/m2）_gap-24", "降水（m）_shift-24", "降水（m）_gap-24", "100m风速（100m/s）_shift-24", "100m风速（100m/s）_gap-24", "100m风向（°)_shift-24", "100m风向（°)_gap-24",
+    "气压(Pa）_shift-12", "气压(Pa）_gap-12", "相对湿度（%）_shift-12", "相对湿度（%）_gap-12", "云量_shift-12", "云量_gap-12", "10米风速（10m/s）_shift-12", "10米风速（10m/s）_gap-12", "10米风向（°)_shift-12", "10米风向（°)_gap-12", "温度（K）_shift-12", "温度（K）_gap-12", "辐照强度（J/m2）_shift-12", "辐照强度（J/m2）_gap-12", "降水（m）_shift-12", "降水（m）_gap-12", "100m风速（100m/s）_shift-12", "100m风速（100m/s）_gap-12", "100m风向（°)_shift-12", "100m风向（°)_gap-12",
+    "气压(Pa）_shift-6", "气压(Pa）_gap-6", "相对湿度（%）_shift-6", "相对湿度（%）_gap-6", "云量_shift-6", "云量_gap-6", "10米风速（10m/s）_shift-6", "10米风速（10m/s）_gap-6", "10米风向（°)_shift-6", "10米风向（°)_gap-6", "温度（K）_shift-6", "温度（K）_gap-6", "辐照强度（J/m2）_shift-6", "辐照强度（J/m2）_gap-6", "降水（m）_shift-6", "降水（m）_gap-6", "100m风速（100m/s）_shift-6", "100m风速（100m/s）_gap-6", "100m风向（°)_shift-6", "100m风向（°)_gap-6",
+    "气压(Pa）_shift-5", "气压(Pa）_gap-5", "相对湿度（%）_shift-5", "相对湿度（%）_gap-5", "云量_shift-5", "云量_gap-5", "10米风速（10m/s）_shift-5", "10米风速（10m/s）_gap-5", "10米风向（°)_shift-5", "10米风向（°)_gap-5", "温度（K）_shift-5", "温度（K）_gap-5", "辐照强度（J/m2）_shift-5", "辐照强度（J/m2）_gap-5", "降水（m）_shift-5", "降水（m）_gap-5", "100m风速（100m/s）_shift-5", "100m风速（100m/s）_gap-5", "100m风向（°)_shift-5", "100m风向（°)_gap-5",
+    "气压(Pa）_shift-4", "气压(Pa）_gap-4", "相对湿度（%）_shift-4", "相对湿度（%）_gap-4", "云量_shift-4", "云量_gap-4", "10米风速（10m/s）_shift-4", "10米风速（10m/s）_gap-4", "10米风向（°)_shift-4", "10米风向（°)_gap-4", "温度（K）_shift-4", "温度（K）_gap-4", "辐照强度（J/m2）_shift-4", "辐照强度（J/m2）_gap-4", "降水（m）_shift-4", "降水（m）_gap-4", "100m风速（100m/s）_shift-4", "100m风速（100m/s）_gap-4", "100m风向（°)_shift-4", "100m风向（°)_gap-4",
+    "气压(Pa）_shift-3", "气压(Pa）_gap-3", "相对湿度（%）_shift-3", "相对湿度（%）_gap-3", "云量_shift-3", "云量_gap-3", "10米风速（10m/s）_shift-3", "10米风速（10m/s）_gap-3", "10米风向（°)_shift-3", "10米风向（°)_gap-3", "温度（K）_shift-3", "温度（K）_gap-3", "辐照强度（J/m2）_shift-3", "辐照强度（J/m2）_gap-3", "降水（m）_shift-3", "降水（m）_gap-3", "100m风速（100m/s）_shift-3", "100m风速（100m/s）_gap-3", "100m风向（°)_shift-3", "100m风向（°)_gap-3",
+    "气压(Pa）_shift-2", "气压(Pa）_gap-2", "相对湿度（%）_shift-2", "相对湿度（%）_gap-2", "云量_shift-2", "云量_gap-2", "10米风速（10m/s）_shift-2", "10米风速（10m/s）_gap-2", "10米风向（°)_shift-2", "10米风向（°)_gap-2", "温度（K）_shift-2", "温度（K）_gap-2", "辐照强度（J/m2）_shift-2", "辐照强度（J/m2）_gap-2", "降水（m）_shift-2", "降水（m）_gap-2", "100m风速（100m/s）_shift-2", "100m风速（100m/s）_gap-2", "100m风向（°)_shift-2", "100m风向（°)_gap-2",
+    "气压(Pa）_shift-1", "气压(Pa）_gap-1", "相对湿度（%）_shift-1", "相对湿度（%）_gap-1", "云量_shift-1", "云量_gap-1", "10米风速（10m/s）_shift-1", "10米风速（10m/s）_gap-1", "10米风向（°)_shift-1", "10米风向（°)_gap-1", "温度（K）_shift-1", "温度（K）_gap-1", "辐照强度（J/m2）_shift-1", "辐照强度（J/m2）_gap-1", "降水（m）_shift-1", "降水（m）_gap-1", "100m风速（100m/s）_shift-1", "100m风速（100m/s）_gap-1", "100m风向（°)_shift-1", "100m风向（°)_gap-1",
+    "气压(Pa）_shift1", "气压(Pa）_gap1", "相对湿度（%）_shift1", "相对湿度（%）_gap1", "云量_shift1", "云量_gap1", "10米风速（10m/s）_shift1", "10米风速（10m/s）_gap1", "10米风向（°)_shift1", "10米风向（°)_gap1", "温度（K）_shift1", "温度（K）_gap1", "辐照强度（J/m2）_shift1", "辐照强度（J/m2）_gap1", "降水（m）_shift1", "降水（m）_gap1", "100m风速（100m/s）_shift1", "100m风速（100m/s）_gap1", "100m风向（°)_shift1", "100m风向（°)_gap1",
+    "气压(Pa）_shift2", "气压(Pa）_gap2", "相对湿度（%）_shift2", "相对湿度（%）_gap2", "云量_shift2", "云量_gap2", "10米风速（10m/s）_shift2", "10米风速（10m/s）_gap2", "10米风向（°)_shift2", "10米风向（°)_gap2", "温度（K）_shift2", "温度（K）_gap2", "辐照强度（J/m2）_shift2", "辐照强度（J/m2）_gap2", "降水（m）_shift2", "降水（m）_gap2", "100m风速（100m/s）_shift2", "100m风速（100m/s）_gap2", "100m风向（°)_shift2", "100m风向（°)_gap2",
+    "气压(Pa）_shift3", "气压(Pa）_gap3", "相对湿度（%）_shift3", "相对湿度（%）_gap3", "云量_shift3", "云量_gap3", "10米风速（10m/s）_shift3", "10米风速（10m/s）_gap3", "10米风向（°)_shift3", "10米风向（°)_gap3", "温度（K）_shift3", "温度（K）_gap3", "辐照强度（J/m2）_shift3", "辐照强度（J/m2）_gap3", "降水（m）_shift3", "降水（m）_gap3", "100m风速（100m/s）_shift3", "100m风速（100m/s）_gap3", "100m风向（°)_shift3", "100m风向（°)_gap3",
+    "气压(Pa）_shift4", "气压(Pa）_gap4", "相对湿度（%）_shift4", "相对湿度（%）_gap4", "云量_shift4", "云量_gap4", "10米风速（10m/s）_shift4", "10米风速（10m/s）_gap4", "10米风向（°)_shift4", "10米风向（°)_gap4", "温度（K）_shift4", "温度（K）_gap4", "辐照强度（J/m2）_shift4", "辐照强度（J/m2）_gap4", "降水（m）_shift4", "降水（m）_gap4", "100m风速（100m/s）_shift4", "100m风速（100m/s）_gap4", "100m风向（°)_shift4", "100m风向（°)_gap4",
+    "气压(Pa）_shift5", "气压(Pa）_gap5", "相对湿度（%）_shift5", "相对湿度（%）_gap5", "云量_shift5", "云量_gap5", "10米风速（10m/s）_shift5", "10米风速（10m/s）_gap5", "10米风向（°)_shift5", "10米风向（°)_gap5", "温度（K）_shift5", "温度（K）_gap5", "辐照强度（J/m2）_shift5", "辐照强度（J/m2）_gap5", "降水（m）_shift5", "降水（m）_gap5", "100m风速（100m/s）_shift5", "100m风速（100m/s）_gap5", "100m风向（°)_shift5", "100m风向（°)_gap5",
+    "气压(Pa）_shift6", "气压(Pa）_gap6", "相对湿度（%）_shift6", "相对湿度（%）_gap6", "云量_shift6", "云量_gap6", "10米风速（10m/s）_shift6", "10米风速（10m/s）_gap6", "10米风向（°)_shift6", "10米风向（°)_gap6", "温度（K）_shift6", "温度（K）_gap6", "辐照强度（J/m2）_shift6", "辐照强度（J/m2）_gap6", "降水（m）_shift6", "降水（m）_gap6", "100m风速（100m/s）_shift6", "100m风速（100m/s）_gap6", "100m风向（°)_shift6", "100m风向（°)_gap6",
+    "气压(Pa）_shift7", "气压(Pa）_gap7", "相对湿度（%）_shift7", "相对湿度（%）_gap7", "云量_shift7", "云量_gap7", "10米风速（10m/s）_shift7", "10米风速（10m/s）_gap7", "10米风向（°)_shift7", "10米风向（°)_gap7", "温度（K）_shift7", "温度（K）_gap7", "辐照强度（J/m2）_shift7", "辐照强度（J/m2）_gap7", "降水（m）_shift7", "降水（m）_gap7", "100m风速（100m/s）_shift7", "100m风速（100m/s）_gap7", "100m风向（°)_shift7", "100m风向（°)_gap7",
+    "气压(Pa）_shift8", "气压(Pa）_gap8", "相对湿度（%）_shift8", "相对湿度（%）_gap8", "云量_shift8", "云量_gap8", "10米风速（10m/s）_shift8", "10米风速（10m/s）_gap8", "10米风向（°)_shift8", "10米风向（°)_gap8", "温度（K）_shift8", "温度（K）_gap8", "辐照强度（J/m2）_shift8", "辐照强度（J/m2）_gap8", "降水（m）_shift8", "降水（m）_gap8", "100m风速（100m/s）_shift8", "100m风速（100m/s）_gap8", "100m风向（°)_shift8", "100m风向（°)_gap8",
+    "气压(Pa）_shift9", "气压(Pa）_gap9", "相对湿度（%）_shift9", "相对湿度（%）_gap9", "云量_shift9", "云量_gap9", "10米风速（10m/s）_shift9", "10米风速（10m/s）_gap9", "10米风向（°)_shift9", "10米风向（°)_gap9", "温度（K）_shift9", "温度（K）_gap9", "辐照强度（J/m2）_shift9", "辐照强度（J/m2）_gap9", "降水（m）_shift9", "降水（m）_gap9", "100m风速（100m/s）_shift9", "100m风速（100m/s）_gap9", "100m风向（°)_shift9", "100m风向（°)_gap9",
+    "气压(Pa）_shift12", "气压(Pa）_gap12", "相对湿度（%）_shift12", "相对湿度（%）_gap12", "云量_shift12", "云量_gap12", "10米风速（10m/s）_shift12", "10米风速（10m/s）_gap12", "10米风向（°)_shift12", "10米风向（°)_gap12", "温度（K）_shift12", "温度（K）_gap12", "辐照强度（J/m2）_shift12", "辐照强度（J/m2）_gap12", "降水（m）_shift12", "降水（m）_gap12", "100m风速（100m/s）_shift12", "100m风速（100m/s）_gap12", "100m风向（°)_shift12", "100m风向（°)_gap12",
+    "气压(Pa）_shift24", "气压(Pa）_gap24", "相对湿度（%）_shift24", "相对湿度（%）_gap24", "云量_shift24", "云量_gap24", "10米风速（10m/s）_shift24", "10米风速（10m/s）_gap24", "10米风向（°)_shift24", "10米风向（°)_gap24", "温度（K）_shift24", "温度（K）_gap24", "辐照强度（J/m2）_shift24", "辐照强度（J/m2）_gap24", "降水（m）_shift24", "降水（m）_gap24", "100m风速（100m/s）_shift24", "100m风速（100m/s）_gap24", "100m风向（°)_shift24", "100m风向（°)_gap24",
+    "气压(Pa）_shift48", "气压(Pa）_gap48", "相对湿度（%）_shift48", "相对湿度（%）_gap48", "云量_shift48", "云量_gap48", "10米风速（10m/s）_shift48", "10米风速（10m/s）_gap48", "10米风向（°)_shift48", "10米风向（°)_gap48", "温度（K）_shift48", "温度（K）_gap48", "辐照强度（J/m2）_shift48", "辐照强度（J/m2）_gap48", "降水（m）_shift48", "降水（m）_gap48", "100m风速（100m/s）_shift48", "100m风速（100m/s）_gap48", "100m风向（°)_shift48", "100m风向（°)_gap48",
+    "气压(Pa）_shift96", "气压(Pa）_gap96", "相对湿度（%）_shift96", "相对湿度（%）_gap96", "云量_shift96", "云量_gap96", "10米风速（10m/s）_shift96", "10米风速（10m/s）_gap96", "10米风向（°)_shift96", "10米风向（°)_gap96", "温度（K）_shift96", "温度（K）_gap96", "辐照强度（J/m2）_shift96", "辐照强度（J/m2）_gap96", "降水（m）_shift96", "降水（m）_gap96", "100m风速（100m/s）_shift96", "100m风速（100m/s）_gap96", "100m风向（°)_shift96", "100m风向（°)_gap96"
+    ]
+    }
+}

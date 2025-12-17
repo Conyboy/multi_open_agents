@@ -1,0 +1,13 @@
+{
+  "lgb": {
+    "n_estimators": 255,
+    "learning_rate": 0.01,
+    "random_state": 42
+  },
+  "xgb": {
+    "n_estimators": 255,
+    "learning_rate": 0.01,
+    "tree_method": "hist",
+    "random_state": 42
+  }
+}
