@@ -46,7 +46,7 @@
 
 ## 演示视频
 
-https://user-images.githubusercontent.com/xxx/模型自动优化训练多智能体录屏.mp4
+https://github.com/Conyboy/multi_open_agents/blob/master/模型自动优化训练多智能体录屏(模型训练完成在2分0秒).mp4
 
 *模型自动优化训练多智能体录屏((模型训练完成在2分0秒).mp4*
 
