@@ -88,7 +88,7 @@ if __name__ == "__main__":
         instruction="您是特征选择专家.",
         model_name="deepseek-chat",
         provider=LLMProviderType.DEEPSEEK,  # 注意：仍写 "openai"（因协议兼容）
-        api_key="sk-3d73bcd178b2466cbc23e4e79b32a7f0",  # os.getenv("DEEPSEEK_API_KEY"),
+        api_key=os.getenv("DEEPSEEK_API_KEY"),
         api_base="https://api.deepseek.com"
     )
     agent = FeatureSelectorAgent(agent_config=config)
