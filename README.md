@@ -44,9 +44,9 @@
 
 ## 演示视频
 
-*模型自动优化训练多智能体录屏((模型训练完成在2分0秒).mp4*
+*模型自动优化训练多智能体录屏(模型训练完成在6分36秒)*
 
-<iframe width="600" height="400" src="https://www.bilibili.com/video/BV1ENqgBnEAj/?share_source=copy_web&vd_source=b25bcd86e5176cbdebc240259a9aeba0" frameborder="0" allowfullscreen></iframe>
+观看演示视频：[https://www.bilibili.com/video/BV1UsqgBiEsy?vd_source=b25bcd86e5176cbdebc240259a9aeba0](https://www.bilibili.com/video/BV1UsqgBiEsy?vd_source=b25bcd86e5176cbdebc240259a9aeba0)
 
 
 ## 工作原理
