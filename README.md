@@ -39,9 +39,7 @@
 │   └── model_param.json        # 模型参数模板
 ├── experiments/                # 实验结果目录
 ├── requirements.txt            # 项目依赖
-├── Dockerfile                 # Docker配置文件
-├── docker-compose.yml         # Docker编排配置
-└── launch_network.sh          # 网络启动脚本
+└── launch_network.sh           # 项目启动脚本
 ```
 
 ## 演示视频
