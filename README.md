@@ -104,6 +104,7 @@ openagents network start ./my_ml_network > ./logs/network.log  &
 
 2. 依次启动各智能体：
 ```bash
+# 修改配置文件 .env 里面的 DEEPSEEK_API_KEY
 python agents/agent_a_load_analyze.py > ./logs/agent_a.log &
 python agents/agent_b_feature_select.py > ./logs/agent_a.log  &
 python agents/agent_c_model_tune.py > ./logs/agent_a.log  &
