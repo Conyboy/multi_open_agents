@@ -236,7 +236,7 @@ class TrainerAgent(WorkerAgent):
 
         await ws.channel(context.channel).reply(message_id, f"轮次 {round_id}: 模型开始评估.")
 
-        model = joblib.load(project_folder + f"/lgb_xgb.pkl")
+        model = joblib.load(project_folder + f"/default_params/lgb_xgb.pkl")
 
         val_pred = model.predict(sub_val_df[feats])
 
