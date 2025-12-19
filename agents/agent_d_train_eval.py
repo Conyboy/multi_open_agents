@@ -221,22 +221,20 @@ class TrainerAgent(WorkerAgent):
                 tree_method=xgb_config["tree_method"],
                 random_state=xgb_config["random_state"]))
         ]
-        # model = StackingRegressor(estimators=estimators, final_estimator=LinearRegression())
+        model = StackingRegressor(estimators=estimators, final_estimator=LinearRegression())
         sub_train_df = df_train[df_train['time'] < '2023-02-01 0:0:0']
         sub_val_df = df_train[df_train['time'] >= '2023-02-01 0:0:0']
 
         feats = [f for f in sub_train_df.columns if f not in [target_col, time_col, 'time', '站点编号', 'min']]
         log.info(f"使用特征:{str(len(feats))}个 \n {feats}")
 
-        # model.fit(sub_train_df[feats], sub_train_df[target_col])
+        model.fit(sub_train_df[feats], sub_train_df[target_col])
 
         await ws.channel(context.channel).reply(message_id, f"轮次 {round_id}: 模型完成训练.")
         # 保存模型
-        # joblib.dump(model, round_dir + f"/lgb_xgb.pkl")
+        joblib.dump(model, round_dir + f"/lgb_xgb.pkl")
 
         await ws.channel(context.channel).reply(message_id, f"轮次 {round_id}: 模型开始评估.")
-
-        model = joblib.load(project_folder + f"/default_params/lgb_xgb.pkl")
 
         val_pred = model.predict(sub_val_df[feats])
 
